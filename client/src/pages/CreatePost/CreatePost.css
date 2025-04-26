@@ -1,0 +1,92 @@
+.createpost-container {
+     display: flex;
+     min-height: 90vh;
+     justify-content: center;
+     align-items: center;
+     padding: 20px;
+}
+
+.createpost-card {
+     background: white;
+     padding: 40px;
+     border-radius: 16px;
+     box-shadow: 0px 4px 10px rgba(49, 55, 152, 0.1);
+     width: 80%;
+     max-width: 600px;
+}
+
+.createpost-title {
+     text-align: center;
+     font-size: 28px;
+     font-weight: 700;
+     color: #305587;
+     margin-bottom: 30px;
+}
+
+.createpost-form {
+     display: flex;
+     flex-direction: column;
+     gap: 20px
+}
+
+.form-group {
+     display: flex;
+     flex-direction: column;
+}
+
+.form-group label {
+     font-size: 16px;
+     color: #374151;
+     margin-bottom: 6px;
+     font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group textarea {
+     padding: 12px 14px;
+     border: 1px solid #3b82f6;
+     border-radius: 8px;
+     font-size: 16px;
+     outline: none;
+     transition: all 0.3s ease;
+     background-color: #f9fafb;
+     padding: 12px;
+}
+
+.form-group input[type="file"] {
+     padding: 10px;
+     background-color: #f9fafb;
+     cursor: pointer;
+}
+
+.form-group input[type="file"]::file-selector-button {
+     background-color: #3b82f6;
+     color: white;
+     border: none;
+     padding: 8px 14px;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+     background-color: #2563eb;
+}
+
+.createpost-button {
+     background-color: #3b82f6;
+     color: white;
+     padding: 12px;
+     border: none;
+     border-radius: 6px;
+     font-weight: bold;
+     font-size: 16px;
+     cursor: pointer;
+     margin-top: 10px;
+     transition: background-color 0.3s ease;
+}
+
+.createpost-button:hover {
+     background-color: #2563eb;
+}

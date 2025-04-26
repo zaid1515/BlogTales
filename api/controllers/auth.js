@@ -2,9 +2,9 @@ const User = require("../models/user");
 const validator = require("validator");
 const asyncWrap = require("../middlewares/asyncWrap");
 const { CustomAPIError } = require("../errors/custom-error");
-const sendEmail = require("../utils/sendEmail");
 const generateToken = require("../utils/generateToken"); 
 const jwt = require("jsonwebtoken");
+const sendToken = require("../utils/sendToken");
 
 const register = asyncWrap(async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -30,23 +30,7 @@ const register = asyncWrap(async (req, res) => {
   });
 
   const verificationToken = await generateToken(newUser);
-  const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
-  const subject = `Verify your Email - BlogTales`;
-  const emailContent = `
-    <p>Hello ${newUser.name},</p>
-    <p>Thank you for registering at BlogTales.</p>
-    <p>Please verify your email by clicking <a href="${verificationUrl}">here</a>.</p>
-    <p>This link will expire in 10 minutes.</p>
-  `;
-
-  await sendEmail(
-    process.env.SENDER_EMAIL,
-    process.env.SENDER_NAME,
-    newUser.email,
-    newUser.name,
-    subject,
-    emailContent
-  );
+  await sendToken(verificationToken,newUser)
 
   res.status(201).json({
     success: true,
@@ -84,6 +68,27 @@ const verifyEmailToken = asyncWrap(async (req, res) => {
     message: "Email verified successfully!",
   });
 });
+
+const resendEmailToken=asyncWrap(async(req,res)=>{
+  const email=req.query.email;
+  if(!email){
+    throw new CustomAPIError("Email required",400)
+  }
+  
+  const user=await User.findOne({email})
+  if(!user){
+    throw new CustomAPIError("User not found",404)
+  }
+
+  const verificationToken = await generateToken(user);
+  await sendToken(verificationToken,user)
+  console.log(verificationToken)
+  res.status(200).json({
+    success: true,
+    message: "Email resend successful!",
+    data:[]
+  });
+})
 
 const login = asyncWrap(async (req, res) => {
   const { email, password } = req.body;
@@ -128,4 +133,5 @@ module.exports = {
   register,
   verifyEmailToken,
   login,
+  resendEmailToken
 };

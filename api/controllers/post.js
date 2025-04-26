@@ -3,7 +3,10 @@ const asyncWrap = require("../middlewares/asyncWrap");
 const Post = require("../models/post");
 
 const getAllPosts = asyncWrap(async (req, res) => {
-  const allPosts = await Post.find({}).sort({ createdAt: -1 });
+  const allPosts = await Post.find({}).sort({ createdAt: -1 }).populate({
+    path: "author",
+    select: "name",
+  });
 
   if (allPosts.length === 0) {
     throw new CustomAPIError("No posts available", 404);
@@ -84,9 +87,9 @@ const deletePost = asyncWrap(async (req, res) => {
   });
 });
 
-module.exports={
-     getAllPosts,
-     createPost,
-     updatePost,
-     deletePost
-}
+module.exports = {
+  getAllPosts,
+  createPost,
+  updatePost,
+  deletePost,
+};
