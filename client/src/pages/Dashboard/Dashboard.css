@@ -8,7 +8,6 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
-     /* background: #b7d3ff; */
      padding: 20px 30px;
      border-radius: 12px;
      color: #305587;
@@ -36,9 +35,6 @@
      color: white;
 }
 
-.buttons >button{
-     margin: 14px;
-}
 .posts-table {
      background: white;
      padding: 25px;

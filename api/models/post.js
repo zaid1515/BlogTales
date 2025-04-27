@@ -13,6 +13,10 @@ const postSchema=new mongoose.Schema({
           type:mongoose.Schema.Types.ObjectId,
           ref:'User',
           required:true
+     },
+     thumbnail:{
+          type:"String",
+          default:""
      }
 },{timestamps:true})
 

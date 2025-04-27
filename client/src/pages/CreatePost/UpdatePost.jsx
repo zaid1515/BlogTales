@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
-import './Createpost.css';
-import { ToastContainer,toast } from 'react-toastify';
+import React, { useState } from "react";
+import "./Createpost.css";
+import { ToastContainer, toast } from "react-toastify";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
+import axios from "axios";
+import { IoArrowBack } from "react-icons/io5";
 
 const UpdatePost = () => {
+  const navigate=useNavigate()
+  const token = localStorage.getItem("token");
+
+  const params = useParams();
+  const postId = params.postId;
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const title = queryParams.get("title");
+  const content = queryParams.get("content");
+  const thumbnail=queryParams.get("thumnail")
+
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    image: null,
+    title: `${decodeURIComponent(title)}`,
+    content: `${decodeURIComponent(content)}`,
+    image: `${decodeURIComponent(thumbnail)}`,
   });
 
   const handleChange = (e) => {
@@ -17,13 +32,41 @@ const UpdatePost = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const postData = new FormData();
+    console.log(formData)
+    postData.append("title", formData.title);
+    postData.append("content", formData.content);
+    console.log(postData)
+    if (formData.image) {
+      postData.append("blogImage", formData.image);
+    }
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/admin/posts/${postId}`,
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Post Updated Successfully!");
+      navigate("/");
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong";
+      toast.error(errorMessage);
+      console.error(error.response?.data || error.message);
+    }
   };
 
   return (
     <div className="createpost-container">
+      <Link to="/dashboard" className="back-button"><IoArrowBack size={24} /> Back to Dashboard</Link>
       <ToastContainer />
       <div className="createpost-card">
         <h2 className="createpost-title">Update Post</h2>
@@ -51,7 +94,7 @@ const UpdatePost = () => {
               onChange={handleChange}
               placeholder="Enter post content"
               required
-              rows="6"
+              rows="12"
             />
           </div>
 
@@ -66,7 +109,9 @@ const UpdatePost = () => {
             />
           </div>
 
-          <button type="submit" className="createpost-button">Update Post</button>
+          <button type="submit" className="createpost-button">
+            Update Post
+          </button>
         </form>
       </div>
     </div>

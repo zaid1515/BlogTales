@@ -41,7 +41,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    getUser(); 
+    getUser();
   }, []);
 
   return (

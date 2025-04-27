@@ -49,7 +49,7 @@ const verifyEmailToken = asyncWrap(async (req, res) => {
   if (!token) {
     throw new CustomAPIError("Token does not exist", 400);
   }
-
+  
   const user = await User.findOne({
     emailToken: token,
     emailTokenExpiry: { $gt: new Date() },
@@ -62,11 +62,8 @@ const verifyEmailToken = asyncWrap(async (req, res) => {
   user.emailTokenExpiry = undefined;
   user.isVerified = true;
   await user.save();
-
-  res.status(200).json({
-    success: true,
-    message: "Email verified successfully!",
-  });
+  const loginUrl = `${process.env.REACT_URL}/login`;
+  return res.redirect(loginUrl);
 });
 
 const resendEmailToken=asyncWrap(async(req,res)=>{
@@ -82,7 +79,7 @@ const resendEmailToken=asyncWrap(async(req,res)=>{
 
   const verificationToken = await generateToken(user);
   await sendToken(verificationToken,user)
-  console.log(verificationToken)
+
   res.status(200).json({
     success: true,
     message: "Email resend successful!",

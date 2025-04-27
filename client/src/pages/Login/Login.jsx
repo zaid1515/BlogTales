@@ -26,11 +26,17 @@ const Login = () => {
 
   const resendEmail = async (email) => {
     try {
-      await axios.post(`http://localhost:3000/api/auth/resend-email-token?email=${email}`);
-      toast.success("Verification email resent successfully. Please check your inbox.");
+      await axios.post(
+        `http://localhost:3000/api/auth/resend-email-token?email=${email}`
+      );
+      toast.success(
+        "Verification email resent successfully. Please check your inbox."
+      );
       setShowResendButton(false);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to resend verification email.");
+      toast.error(
+        error.response?.data?.message || "Failed to resend verification email."
+      );
       console.error("Resend email error:", error);
     }
   };
@@ -40,7 +46,10 @@ const Login = () => {
     setShowResendButton(false);
 
     try {
-      const { data } = await axios.post("http://localhost:3000/api/auth/login", formData);
+      const { data } = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        formData
+      );
       toast.success("Login successful!");
 
       const decoded = jwtDecode(data.token);
@@ -50,11 +59,17 @@ const Login = () => {
       localStorage.setItem("role", role);
       localStorage.setItem("userId", userId);
 
-      navigate("/");
+      if (role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
       setShowResendButton(true);
-      toast.error(error.response?.data?.message || "Login failed! Please try again.");
+      toast.error(
+        error.response?.data?.message || "Login failed! Please try again."
+      );
     }
   };
 
@@ -117,7 +132,7 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="register-button" >
+          <button type="submit" className="register-button">
             Login
           </button>
         </form>
@@ -125,8 +140,8 @@ const Login = () => {
         {showResendButton && (
           <p className="register-footer">
             Didn't verify your email?{" "}
-            <a 
-              onClick={() => resendEmail(formData.email)} 
+            <a
+              onClick={() => resendEmail(formData.email)}
               className="resend-button"
               type="button"
             >

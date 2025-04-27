@@ -1,8 +1,9 @@
 console.log("Welcome to BlogTales");
-
+const dotenv = require("dotenv");
+dotenv.config(); 
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const path=require('path')
 const { connectDB } = require("./db/connect");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
@@ -12,7 +13,7 @@ const authorizeRole = require("./middlewares/authorize");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 
-dotenv.config(); 
+
 
 const app = express();
 
@@ -20,6 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "./tmp", "../tmp")));
 
 // API Routes
 app.use('/api/auth', authRouter);

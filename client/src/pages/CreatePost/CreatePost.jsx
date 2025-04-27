@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Createpost.css';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
+import { IoArrowBack } from 'react-icons/io5';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const CreatePost = () => {
     postData.append('title', formData.title);
     postData.append('content', formData.content);
     if (formData.image) {
-      postData.append('image', formData.image);
+      postData.append('blogImage', formData.image);
     }
 
     try {
@@ -38,8 +39,7 @@ const CreatePost = () => {
         postData,
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
           },
         }
       );
@@ -55,6 +55,7 @@ const CreatePost = () => {
 
   return (
     <div className="createpost-container">
+      <Link to="/dashboard" className="back-button"><IoArrowBack size={24} /> Back to Dashboard</Link>
       <ToastContainer />
       <div className="createpost-card">
         <h2 className="createpost-title">Create New Post</h2>

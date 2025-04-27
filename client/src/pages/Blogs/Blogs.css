@@ -1,5 +1,4 @@
 .blogs-page {
-     background-color: #f5f7fa;
      min-height: 100vh;
      margin: 0px 0px 20px 0px;
 }
@@ -15,9 +14,12 @@
 }
 
 .blogs-header h1 {
-     font-size: 40px;
+     font-family: 'Comic Relief', serif;
+     font-size: 50px;
      font-weight: 800;
      color: #305587;
+     line-height: 1.2;
+     letter-spacing: 0.5px;
 }
 
 .blogs-grid {
