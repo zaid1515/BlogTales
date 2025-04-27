@@ -17,6 +17,7 @@ const SinglePost = () => {
   const role=localStorage.getItem('role')
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setIsLoading(true);
     const fetchPost = async () => {
       try {
