@@ -4,7 +4,7 @@ import axios from "axios";
 import formatDate from "../../utils/formatDate";
 import { toast } from "react-toastify";
 import { IoArrowBack } from "react-icons/io5";
-import "./Singlepost.css";
+import "./SinglePost.css";
 
 const SinglePost = () => {
   const { id } = useParams();
