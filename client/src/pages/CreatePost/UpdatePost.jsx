@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Createpost.css";
+import "./CreatePost.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
