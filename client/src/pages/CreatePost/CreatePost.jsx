@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import { IoArrowBack } from 'react-icons/io5';
+import URI from '../../URI';
 
 const CreatePost = () => {
   const navigate = useNavigate();
