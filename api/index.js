@@ -31,10 +31,6 @@ app.use('/api/admin', authenticate, authorizeRole("admin"), adminRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-app.get('*',(req,res)=>{
-  res.status(404).send('Page Not Found')
-})
-
 // Start Server
 const PORT = process.env.PORT || 3000;
 
