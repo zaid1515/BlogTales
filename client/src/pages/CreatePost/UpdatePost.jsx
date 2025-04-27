@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { IoArrowBack } from "react-icons/io5";
+import URI from "../../URI";
 
 const UpdatePost = () => {
   const navigate=useNavigate()
@@ -46,7 +47,7 @@ const UpdatePost = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/admin/posts/${postId}`,
+        `${URI}/api/admin/posts/${postId}`,
         postData,
         {
           headers: {

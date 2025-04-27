@@ -35,7 +35,7 @@ const CreatePost = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/admin/posts",
+        `${URI}/api/admin/posts`,
         postData,
         {
           headers: {

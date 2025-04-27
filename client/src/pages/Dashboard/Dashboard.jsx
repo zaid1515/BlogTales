@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import formatDate from "../../utils/formatDate";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Navbar from "../../components/Navbar/Navbar";
+import URI from "../../URI";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -20,7 +21,7 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const postsRes = await axios.get(
-        "http://localhost:3000/api/user/get-posts",
+        `${URI}/api/user/get-posts`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -41,7 +42,7 @@ const Dashboard = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/admin/posts/${postId}`, {
+      await axios.delete(`${URI}/api/admin/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Post deleted successfully!");

@@ -6,6 +6,7 @@ import "./Blogs.css";
 import Navbar from "../../components/Navbar/Navbar";
 import { IoArrowBack } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
+import URI from "../../URI";
 
 function Blogs() {
   const [posts, setPosts] = useState([]);
@@ -22,7 +23,7 @@ function Blogs() {
         navigate('/login')
       }
       const response = await axios.get(
-        `http://localhost:3000/api/user/get-posts`,
+        `${URI}/api/user/get-posts`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

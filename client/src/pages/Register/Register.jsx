@@ -3,6 +3,7 @@ import "./Register.css";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
 import { toast, ToastContainer } from "react-toastify"; 
+import URI from "../../URI";
 
 const Register = () => {
   const navigate=useNavigate()
@@ -31,7 +32,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/register", formData);
+      const response = await axios.post(`${URI}/api/auth/register`, formData);
       toast.info("Check your email for verification");
       navigate(to='/login')
       console.log(response.data); 

@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "../Register/Register.css";
+import URI from "../../URI";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Login = () => {
   const resendEmail = async (email) => {
     try {
       await axios.post(
-        `http://localhost:3000/api/auth/resend-email-token?email=${email}`
+        `${URI}/api/auth/resend-email-token?email=${email}`
       );
       toast.success(
         "Verification email resent successfully. Please check your inbox."
@@ -47,7 +48,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${URI}/api/auth/login`,
         formData
       );
       toast.success("Login successful!");

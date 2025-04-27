@@ -12,8 +12,7 @@ const authenticate = require("./middlewares/auth");
 const authorizeRole = require("./middlewares/authorize");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
-
-
+const fs = require('fs');
 
 const app = express();
 
@@ -32,6 +31,10 @@ app.use('/api/admin', authenticate, authorizeRole("admin"), adminRouter);
 app.use(notFound);
 app.use(errorHandler);
 
+app.get('*',(req,res)=>{
+  res.status(404).send('Page Not Found')
+})
+
 // Start Server
 const PORT = process.env.PORT || 3000;
 
@@ -45,3 +48,4 @@ const start = async () => {
 };
 
 start();
+module.exports = app;

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import URI from "../../URI";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Navbar() {
       const userId = localStorage.getItem("userId");
       if (userId) {
         const response = await axios.get(
-          `http://localhost:3000/api/user/${userId}`,
+          `${URI}/api/user/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

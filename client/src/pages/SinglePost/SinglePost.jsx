@@ -5,6 +5,7 @@ import formatDate from "../../utils/formatDate";
 import { toast } from "react-toastify";
 import { IoArrowBack } from "react-icons/io5";
 import "./SinglePost.css";
+import URI from "../../URI";
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const SinglePost = () => {
       try {
         const token = localStorage.getItem("token");
         const { data } = await axios.get(
-          `http://localhost:3000/api/user/get-post/${id}`,
+          `${URI}/api/user/get-post/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
